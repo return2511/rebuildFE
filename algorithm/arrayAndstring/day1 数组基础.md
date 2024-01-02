@@ -153,3 +153,88 @@ const difference = new Set([...setA].filter(x => !setB.has(x)));
 ```
 
 这些操作对于处理集合数据时非常有用，特别是在需要对数据进行快速去重或者查找共有/独有元素时。利用 `Set` 的特性，这些运算既高效又易于实现。
+
+## 相关题目
+
+- leetcode: [219. 存在重复元素 II](https://leetcode.cn/problems/contains-duplicate-ii/) 
+```javascript
+/**
+ * map 解法  key用num的值，value存储num在数组中对应的下标，计划当前下标和map中数据下标差值满足条件即可
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+const containsNearbyDuplicate = function (nums, k) {
+  const map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    if (map.has(nums[i]) && i - map.get(nums[i]) <= k) {
+      return true;
+    }
+    map.set(nums[i], i);
+  }
+  return false;
+};
+```
+
+![[Pasted image 20240102234753.png]]
+```javascript
+/**
+ * set 解法 固定set的size，如果没有重复就右移，删除最左边的值
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+const containsNearbyDuplicate2 = function (nums, k) {
+  const set = new Set();
+  for (let i = 0; i < nums.length; i++) {
+    if (i > k) {
+      set.delete(i - k - 1);
+    }
+    if (set.has(nums[i])) {
+      return true;
+    }
+    set.add(nums[i]);
+  }
+  return false;
+};
+
+```
+![[Pasted image 20240102235500.png]]
+
+- leetcode[136. 只出现一次的数字](https://leetcode.cn/problems/single-number/)
+> 给你一个 **非空** 整数数组 `nums` ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+> 
+你必须设计并实现线性时间复杂度的算法来解决此问题，且该算法只使用常量额外空间。
+
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function (nums) {
+  let ans = 0;
+  for (const num of nums) {
+    ans ^= num;
+  }
+  return ans;
+};
+```
+
+- leetcode:  [349. 两个数组的交集](https://leetcode.cn/problems/intersection-of-two-arrays/
+```javascript
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+const intersection = function (nums1, nums2) {
+  const setA = new Set(nums1);
+  const setB = new Set(nums2);
+
+  return [...new Set([...setA].filter((item) => setB.has(item)))];
+};
+```
+## 课后作业
+ leetcode: [220. 存在重复元素 III](https://leetcode.cn/problems/contains-duplicate-iii/)
+ 
