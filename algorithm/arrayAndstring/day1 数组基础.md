@@ -237,4 +237,6 @@ const intersection = function (nums1, nums2) {
 ```
 ## 课后作业
  leetcode: [220. 存在重复元素 III](https://leetcode.cn/problems/contains-duplicate-iii/)
+- 滑动窗口，然后求数组中是否满足两两差值比目标小的方法  bt 会超时
+- 官方桶排序算法相当牛逼，晚点补上解析
  
